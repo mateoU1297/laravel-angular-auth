@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import {SnotifyService} from 'ng-snotify';
+import { ResetPasswordService } from 'src/app/services/reset-password.service';
 
 @Component({
   selector: 'app-request-reset',
@@ -7,9 +10,36 @@ import { Component, OnInit } from '@angular/core';
 })
 export class RequestResetComponent implements OnInit {
 
-  constructor() { }
+  form: FormGroup;
+  
+  constructor(
+    private _snotifyService: SnotifyService,
+    private _resetPassword: ResetPasswordService,
+    private fb: FormBuilder){
+      this.form = this.fb.group({
+        email: ['', [Validators.required, Validators.email]],
+      })
+   }
 
   ngOnInit(): void {
+  }
+
+  onSubmit(){
+
+    const data: any = {
+      email: this.form.get('email')?.value,
+    }
+
+    this._resetPassword.sendPasswordResetLink(data).subscribe(
+      data => this.handleResponse(data),
+      error => this._snotifyService.error(error.error.error)
+      
+    );
+  }
+
+  handleResponse(res: any){
+    console.log(res);
+    this.form.reset();
   }
 
 }
