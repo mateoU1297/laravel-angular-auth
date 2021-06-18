@@ -25,6 +25,7 @@ export class RequestResetComponent implements OnInit {
   }
 
   onSubmit(){
+    this._snotifyService.info('Wait...', {timeout: 4000});
 
     const data: any = {
       email: this.form.get('email')?.value,
@@ -38,7 +39,7 @@ export class RequestResetComponent implements OnInit {
   }
 
   handleResponse(res: any){
-    console.log(res);
+    this._snotifyService.success(res.data, {timeout: 0});
     this.form.reset();
   }
 

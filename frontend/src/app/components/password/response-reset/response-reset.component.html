@@ -1,1 +1,39 @@
-<p>response-reset works!</p>
+<div class="mt-4 col-8 offset-2">
+    <div class="card">
+        <div class="card-header">
+            Reset Password
+        </div>
+        <div class="card-body">
+            <form [formGroup]="form" (ngSubmit)="onSubmit()">
+                <div class="input-group input-group-lg mb-3">
+                    <span class="input-group-text">
+                        <i class="fas fa-at"
+                        [class.green-icon]="this.form.get('email')?.valid"
+                        [class.red-icon]="this.form.get('email')?.invalid && this.form.get('email')?.touched"></i>
+                    </span>
+                    <input formControlName="email" type="text" class="form-control" placeholder="Email">
+                </div>
+                <span class="text-danger" [hidden]="!error.email"> {{error.email}}</span>
+                <div class="input-group input-group-lg mb-3">
+                    <span class="input-group-text">
+                        <i class="fas fa-key"
+                        [class.green-icon]="this.form.get('password')?.valid"
+                        [class.red-icon]="this.form.get('password')?.invalid && this.form.get('password')?.touched"></i>
+                    </span>
+                    <input formControlName="password" type="password" class="form-control" placeholder="Password">
+                </div>
+                <span class="text-danger" [hidden]="!error.password"> {{error.password}}</span>
+                <div class="input-group input-group-lg mb-3">
+                    <span class="input-group-text">
+                        <i class="fas fa-key"
+                        [class.green-icon]="this.form.get('password_confirmation')?.valid"
+                        [class.red-icon]="this.form.get('password_confirmation')?.invalid && this.form.get('password_confirmation')?.touched"></i>
+                    </span>
+                    <input formControlName="password_confirmation" type="password" class="form-control" placeholder="Password Confirmation">
+                </div>
+                <span class="text-danger" [hidden]="!error.password_confirmation"> {{error.password_confirmation}}</span>
+                <button type="submit" [disabled]="this.form.invalid" class="btn btn-primary">Change password</button>
+            </form>
+        </div>
+    </div>
+</div>
