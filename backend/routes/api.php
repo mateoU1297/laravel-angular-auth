@@ -16,5 +16,6 @@ Route::group([
     Route::post('me', 'AuthController@me');
 
     Route::post('send-password-reset-link', 'ResetPasswordController@sendEmail');
+    Route::post('reset-password', 'ResetPasswordController@resetPassword');
 
 });
